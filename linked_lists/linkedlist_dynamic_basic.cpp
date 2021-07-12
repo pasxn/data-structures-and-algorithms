@@ -28,7 +28,6 @@ void linkedList(int data) {
         Node* tmp;
         for(tmp = head; tmp->next != NULL; tmp = tmp->next);
         // moves the tmp pointer to the next pointer of the last attached node
-
         tmp->next = newNode;
     }
 }
