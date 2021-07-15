@@ -1,41 +1,121 @@
-#include <stdio.h>
+#include <iostream>
 
-typedef struct node {
-    int data;
-    struct node* next;
-} Node;
+class Node {
+    public:
+        int data;
+        Node* next;
+        Node(int fata, Node* next);
+        ~Node();
+};
+
+Node::Node(int data, Node* next) : data(data), next(next) {};
+Node::~Node() {};
 
 class LinkedListInt {
     private:
         Node* linkedList;
     
     public:
-        LinkedListInt(Node* linkedList);
-        void add();
-        void pop();
-        void tail();
-        void head();
-        void remove();
-        void clean();
-        void invert();                
+        LinkedListInt(int data); 
+        void add(int data); 
+        int pop();
+        int tail(); 
+        int head(); 
+        void clean(); 
+        void modifyHead(int data); 
+        void print(); 
+        ~LinkedListInt(); 
+
 };
 
-LinkedListInt::LinkedListInt(Node* linkedList) : linkedList(linkedList){}
-
-Node createNode(int data, Node* next) {
-    return {data, next};
+LinkedListInt::LinkedListInt(int data) {
+    linkedList = new Node(data, NULL);
 }
 
-Node* linkedList(){
+void LinkedListInt::add(int data) {
+    static Node* loc;
+    
+    if (linkedList->next == NULL)
+            loc = linkedList;    
+    
+    Node* tmp;
+    for(tmp = loc; tmp->next != NULL; tmp = tmp->next) {};
+    tmp->next = new Node(data, NULL);
+    loc = tmp;
+}
 
+int LinkedListInt::pop() { 
+    Node* tmp;
+    for(tmp = linkedList; tmp->next != NULL; tmp = tmp->next) {};
+    int tmpInt = tmp->data;
+    
+    Node* tmp2;
+    for(tmp2 = linkedList; tmp2->next != tmp; tmp2 = tmp2->next) {};
+    tmp2->next = NULL;
+
+    delete tmp;
+    return tmpInt;
+}
+
+int LinkedListInt::tail() {
+    Node* tmp;
+    for(tmp = linkedList; tmp->next != NULL; tmp = tmp->next) {};
+    return tmp->data;
+}
+
+int LinkedListInt::head() {
+    return linkedList->data;
+}
+
+void LinkedListInt::clean() {
+    delete linkedList->next;
+    linkedList->next = NULL;
+    linkedList->data = 0;
+}
+
+void LinkedListInt::modifyHead(int data) {
+    linkedList->data = data;
+}
+
+void LinkedListInt::print() {
+    for(Node* tmp = linkedList; tmp != NULL; tmp = tmp->next){
+		printf("%d\n", tmp->data);
+	}
+}
+
+LinkedListInt::~LinkedListInt() {
+    delete linkedList;
 }
 
 
 int main() {
-    Node* head = NULL;
+    LinkedListInt* ll = new LinkedListInt(1);
+    ll->add(2);
+    ll->add(3);
+    ll->add(4);
+    ll->add(5);
+    ll->add(6);
+    ll->add(7);
+    ll->add(8);
 
+    ll->print();
 
-	for(Node* tmp = head; tmp != NULL; tmp = tmp->next){
-		printf("%d\n", tmp->data);
-	}
+    ll->clean();
+
+    ll->print();
+
+    ll->modifyHead(1);
+
+    ll->print();   
+        
+    std::cout << ll->pop() <<std::endl;
+
+    ll->print();
+
+    std::cout << ll->pop() <<std::endl;
+
+    ll->print();
+
+    delete ll;
+
 }

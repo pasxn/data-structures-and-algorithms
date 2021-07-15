@@ -38,7 +38,7 @@ Node* linkedList(int data, Node* head) {
 }
 
 void printList(Node* head) {
-    for(Node* tmp = head; tmp != NULL; tmp = tmp->next){
+    for(Node* tmp = head; tmp != NULL; tmp = tmp->next) {
 		printf("%d\n", tmp->data);
 	}
 }
