@@ -11,17 +11,13 @@ class Node {
 }
 
 class Linkedlist {
-    static Node top = null;
+    Node top = null;
 
-    public static void main(String[] args) {
-        linkedList(1, 1);
-        linkedList(2, 2);
-        linkedList(3, 3);
-    
-        printList();
+    Linkedlist(int x, int y) {
+        this.top = new Node(x, y);
     }
 
-    static void linkedList(int x, int y) {
+    void add(int x, int y) {
         Node newNode = new Node(x, y);
 
         if(top == null) { 
@@ -33,10 +29,20 @@ class Linkedlist {
         }
     }
 
-    static void printList() {
+    void printList() {
         for(Node tmp = top; tmp != null; tmp = tmp.next){
             System.out.printf("%d, %d \n", tmp.x, tmp.y);
         }
     }
 
+}
+
+
+class Main {
+    public static void main(String[] args) {
+        Linkedlist ll = new Linkedlist(1, 1);
+        ll.add(2, 2);
+        ll.add(3, 3);
+        ll.printList();
+    }
 }
