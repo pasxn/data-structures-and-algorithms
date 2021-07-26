@@ -25,14 +25,18 @@ Node* add_tree(Node* top, int data) {
     }else{
         if(data < top->data) {
             top->left = add_tree(top->left, data);
-            puts((char*)data);
+            return top;
         }else {
             top->right = add_tree(top->right, data);
-            puts((char*)data);
+            return top;
         }
     }
 
     return top;
+}
+
+void print_tree(Node* top) {
+    printf("%d\n", top->data);
 }
 
 int main() {
@@ -51,12 +55,11 @@ int main() {
     top = add_tree(top, 63);
     top = add_tree(top, 25);
 
-    printf("%ld\n", sizeof(*top));
+    print_tree(top);
 
     // pre-order travel
     // in-order
     // post-order       
-
     // one makes this to be a binery search tree
 
 
