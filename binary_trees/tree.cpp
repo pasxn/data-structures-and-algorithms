@@ -17,10 +17,52 @@ Node* create_node(int data) {
     return tmp;
 }
 
-Node* add_tree(Node* top, int data) {
-    Node* newNode = create_node(data);
+void add_tree(Node** top, int data) {
+    if(*top == NULL) {
+        Node* newNode = create_node(data);
+        *top = newNode;
+    }else{
+        if(data < (*top)->data)
+            add_tree( &((*top)->left) , data);
+        else
+            add_tree( &((*top)->right), data);
+    }
+}
 
+void print_tree(Node* top) {
+    if(top == NULL) 
+        return;
+    print_tree(top->left);
+    printf("%d\n", top->data);
+    print_tree(top->right);
+}
+
+int main() {
+    
+    Node* top = NULL;
+
+    add_tree(&top, 42); // use pointer to pointer
+    add_tree(&top, 34);
+    add_tree(&top, 73);
+    add_tree(&top, 12);
+    add_tree(&top, 9);
+    add_tree(&top, 87);
+    add_tree(&top, 50);
+    add_tree(&top, 98);
+    add_tree(&top, 63);
+    add_tree(&top, 25);
+    add_tree(&top, 99);
+    
+    print_tree(top);
+    add_tree(&top, 69);
+    print_tree(top);
+}
+
+
+/*
+Node* add_tree(Node* top, int data) {
     if(top == NULL) {
+        Node* newNode = create_node(data);
         top = newNode;
     }else{
         if(data < top->data) {
@@ -34,33 +76,4 @@ Node* add_tree(Node* top, int data) {
 
     return top;
 }
-
-void print_tree(Node* top) {
-    printf("%d\n", top->data);
-}
-
-int main() {
-    
-    Node* top = NULL;
-
-    top = add_tree(top, 42);
-    top = add_tree(top, 34);
-    top = add_tree(top, 34);
-    top = add_tree(top, 73);
-    top = add_tree(top, 12);
-    top = add_tree(top, 9);
-    top = add_tree(top, 87);
-    top = add_tree(top, 50);
-    top = add_tree(top, 99);
-    top = add_tree(top, 63);
-    top = add_tree(top, 25);
-
-    print_tree(top);
-
-    // pre-order travel
-    // in-order
-    // post-order       
-    // one makes this to be a binery search tree
-
-
-}
+*/
