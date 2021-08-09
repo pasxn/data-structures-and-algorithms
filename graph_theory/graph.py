@@ -1,49 +1,71 @@
 #!/usr/bin/env python3
 
-"""
-Visual representation of a graph
-N E
-Next E lines will contain
-From -> To -> Weight
+    static boolean[] visit;
+    static int[][] arr;
+    static int[] path;
+    static int p, N, E;
 
-5 5
-1 2 90
-2 3 120
-3 4 50
-2 5 300
-4 5 200
+    static void rec(int cur, int end) {
+        # if we have reached the end node, the we print the path and exit
+        if (cur == end) {
+            for (int i=0; i<p; i++) {
+                System.out.print(path[i] + ", ");
+            }
+            System.out.println(end);
+            return;
+        }
 
-How to represent in computer memory
+        # we only come here if we haven't reached the end
 
-object
-object
-2D array of N*N as a chart (Adjacency weighted matrix)
+        visit[cur] = true;  # mark the current node as visited
+        path[p++] = cur;    # add the current node to the path
 
-list[][]
-if i[], j[] > 0: there is an egde
-"""
+        # check all the outgoing edges from this node
+        for (int i=1; i<=N; i++)
+            # if the path exists (non-zero weight) AND the destination is not visited yet
+            # (we check visitation to avoid getting caught in a cycle)
+            if (arr[cur][i] > 0 && !visit[i])
+                // we recurse to the next node
+                rec(i, end);
 
+        # this is backtracking; on the way back we:
+        p--;                    # remove the current node from the path
+        visit[cur] = false;     # mark node as unvisited
+    }
 
-# if __name__ == '__main__':
-    """
-    make an array [N+1]*[N+1]
-    input the stuff
-    print the array out for the output
-    travelsal
-    DFS 
-        Go using one path
-        come back and go again
-        1, 2, 3, 4, 5
-        1, 2, 3, 5
-        rec function with the starting and ending point
-        fun (img):
-            if(current = end):
-                print the path
-            as go foward add to the path
-            loop
-            coming back reduce rge path
-            https://github.com/shyam3001/share/blob/Algothon/src/BasicDFS.java
-            print the cost as well
-            and the shorted path
-            put a PR
-    """
+    public static void main(String[] args) throws Exception {
+        Scanner in = new Scanner(new File("graph.in"));
+
+        # read the number of nodes and edges
+        N = in.nextInt();
+        E = in.nextInt();
+
+        # create weighted adjacency matrix to hold the graph in memory
+        arr = new int[N+1][N+1];
+
+        # create an array to store the visit status of each node during DFS
+        visit = new boolean[N+1];
+
+        # create space to store temporary path while DFS traversal
+        path = new int[N*N];
+
+        # read the weights of each edge and store in the graph
+        for (int i=0; i<E; i++) {
+            int st = in.nextInt();
+            int et = in.nextInt();
+            int w = in.nextInt();
+            arr[st][et] = w;
+        }
+        in.close();
+
+        # print the graph to check if everything was read correctly
+        # this is good practice, saves time during a competition!
+        for (int i=1; i<=N; i++) {
+            for (int j = 1; j <= N; j++)
+                System.out.print(arr[i][j] + " ");
+            System.out.println();
+        }
+        System.out.println();
+
+        # recurse from node 1 to until we find node 6
+        rec(1,6);
