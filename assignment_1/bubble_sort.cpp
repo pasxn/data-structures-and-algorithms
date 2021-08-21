@@ -17,7 +17,7 @@ void bubblesort(int arr[], int n) {
             }
         }
         // if no two elements were swapped by inner loop, then break
-        if (swapped == 1)
+        if (swapped != 1)
                 break;
     }
 }
