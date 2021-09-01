@@ -21,7 +21,6 @@ class LinkedListInt {
         void add(int data); 
         int pop();
         int search(int data);
-        int search_and_remove(int data);
         int tail(); 
         int head(); 
         void clean(); 
@@ -62,28 +61,15 @@ int LinkedListInt::pop() {
 
 int LinkedListInt::search(int data) { 
     Node* tmp;
-    for(tmp = linkedList; tmp->next != NULL; tmp = tmp->next) {};
-    int tmpInt = tmp->data;
-    
-    Node* tmp2;
-    for(tmp2 = linkedList; tmp2->next != tmp; tmp2 = tmp2->next) {};
-    tmp2->next = NULL;
+    int isThere = 0;
+    for(tmp = linkedList; tmp->next != NULL; tmp = tmp->next) {
+        if(tmp->data == data) {
+            isThere = 1;
+            break;
+        }
+    };
 
-    delete tmp;
-    return tmpInt;
-}
-
-int LinkedListInt::search_and_remove(int data) { 
-    Node* tmp;
-    for(tmp = linkedList; tmp->next != NULL; tmp = tmp->next) {};
-    int tmpInt = tmp->data;
-    
-    Node* tmp2;
-    for(tmp2 = linkedList; tmp2->next != tmp; tmp2 = tmp2->next) {};
-    tmp2->next = NULL;
-
-    delete tmp;
-    return tmpInt;
+    return isThere;
 }
 
 int LinkedListInt::tail() {
@@ -108,7 +94,7 @@ void LinkedListInt::modifyHead(int data) {
 
 void LinkedListInt::print() {
     for(Node* tmp = linkedList; tmp != NULL; tmp = tmp->next){
-		printf("%d\n", tmp->data);
+		printf("%d  ", tmp->data);
 	}
 }
 
@@ -118,16 +104,16 @@ LinkedListInt::~LinkedListInt() {
 
 class HashTable{
     private:
-        static const int slots = 8;
+        static const int slots = 5;
         LinkedListInt* arr[slots];
     
     public:
         HashTable();
         void add(int data);
-        int find(int data);
-        int remove(int data);
+        int isThere(int data);
         void clean();
-        static int hash(int data);
+        int hash(int data);
+        void print();
         ~HashTable();
 };
 
@@ -144,45 +130,48 @@ int HashTable::hash(int data) {
 void HashTable::add(int data) {
     int slot = hash(data);
 
+    std::cout << slot << std::endl;
+
     if(arr[slot] == NULL)
         arr[slot] = new LinkedListInt(data);
     else
         arr[slot]->add(data);
 }
 
-int HashTable::find(int data) {
+int HashTable::isThere(int data) {
     int slot = hash(data);
 
-    //arr[slot]->
+    return arr[slot]->search(data);
+}
 
+void HashTable::clean(){
+    for(int i = 0; i<slots; i++) {
+        arr[i]->clean();
+    }
+}
+
+void HashTable::print() {
+    for(int i = 0; i<slots; i++) {
+        printf("array slot [%d]\n", i);
+        arr[i]->print();
+        puts("\n\n");
+    }
 }
 
 HashTable::~HashTable() {
     delete *arr;
 }
 
-////////////////////////////// buggy
-
-void print_array(int arr[]) {
-    for(int i = 0; i<8; i++) {
-        printf("%d\n", arr[i]);
-    }
-}
-
 int main() {
-    // int hash;
-    // int arr[N];
-
-    // print_array(arr);
-
-    // for(int i = 0; i<N; i++) {
-    //     hash = i/N;
-    //     arr[hash]++;
-    // }
-
-    // print_array(arr);
 
     HashTable* tab = new HashTable();
-    tab->add(1);
+    
+    for(int i = 1; i<=10; i++) {
+        tab->add(i);
+    }
+
+    tab->print();
+
+    delete tab;
 
 }
