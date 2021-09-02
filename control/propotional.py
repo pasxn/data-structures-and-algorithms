@@ -1,45 +1,60 @@
-import time
+import time 
 from matplotlib import pyplot as plt 
 
-# wrong!! have to reimplement after restudying the theory
 class Propotional:
-    def __init__(self, k, target):
-        self.k = k   
-        self.con_velocity = 0.0
-        self.target = target
-        self.curr_pos = 0.0
-        self.prevtime = self.milli(self)
-
-    @staticmethod
-    def milli(self):
-        return round(time.time() * 1000)
-
-    @staticmethod
-    def updatetime(self):
-        self.prevtime = self.milli(self)
-
-    def updatek(self, k):
+    def __init__(self, k):
         self.k = k
+        self.target = 0.0
+        self.location = 0.0
+        self.error = 0.0
+        self.velocity = 0.0
+        self.prevtime = 0.0
 
-    def compute(self, input):
-        self.con_velocity =  (input - self.con_velocity)*self.k
-        time_diff = self.prevtime - self.milli(self)
-        time.sleep(0.05)
-        print(time_diff, self.milli(self))
-        self.target = self.target - self.con_velocity*time_diff 
-        self.updatetime(self)
-        return self.target
-    
+    @staticmethod
+    def findlocation(self):
+        now_time = time.time()
+        delta_s = self.velocity*(now_time - self.prevtime)
+        self.prevtime = now_time
+
+        return delta_s
+
+    def compute(self, target):
+        if self.prevtime == 0.0:
+            self.prevtime = time.time()
+
+        self.target = target
+        location_list = list()
+        velocity_list = list()
+
+        while self.location <= self.target-0.1:
+            self.error = self.target - self.location
+            self.velocity = self.k*self.error 
+            velocity_list.append(self.location)
+            # print(self.velocity)
+
+            self.location += self.findlocation(self)
+            location_list.append(self.location)
+            # print(self.location)
+        
+        return location_list, velocity_list
+
 
 if __name__ == '__main__':
-    p_con = Propotional(0.1, 10)
+
+    p_con = Propotional(10)
     
-    output = list()
+    target = int(input("Enter the target: "))
 
-    for i in range(0, 100):
-        output.append(p_con.compute(100-i))
+    location, velocity = p_con.compute(target)
 
-    plt.plot(output, [i for i in range(0, 100)])
+    plt.axhline(y=target, color='r', linestyle='-')
+    plt.plot([i for i in range(len(location))], location)
+    plt.xlabel('Time')
+    plt.legend(['Target', 'Location'])
     plt.show()
 
-    
+    plt.axhline(y=target, color='r', linestyle='-')
+    plt.plot([i for i in range(len(velocity))], velocity)
+    plt.xlabel('Time')
+    plt.legend(['Target', 'velocity'])
+    plt.show()
