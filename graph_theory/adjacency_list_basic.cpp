@@ -50,14 +50,13 @@ void add_vertex(char vertex) {
 void add_ud_edge(char v1, char v2) {
     for(int i=0; i<num_vertices  ; i++) {
         if( adj_list[i].node_name == v1 ) // found the node
-            add_to_list( &(adj_list[i]), v2);
+            add_to_list(&adj_list[i], v2);
         
         if( adj_list[i].node_name == v2 ) // found the node
-            add_to_list( &(adj_list[i]), v1);
+            add_to_list(&adj_list[i], v1);
     }
 }
 
-//note I did not need the double pointer, as listed in class.
 void add_to_list( Vertex *ptr, char vertex) {
     Vertex *tmp;
     // move to end of current list
