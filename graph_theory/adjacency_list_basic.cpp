@@ -11,7 +11,7 @@ typedef struct vertex {
 
 void add_vertex(char vertex);
 void add_ud_edge(char v1, char v2);
-void add_to_list( Vertex *ptr, char vertex);
+void add_to_list(Vertex *ptr, char vertex);
 void print_graph(Vertex adj_list[]);
 
 Vertex adj_list[30];
