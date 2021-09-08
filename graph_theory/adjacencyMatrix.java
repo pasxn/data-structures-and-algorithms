@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 class Main {
     public static void main(String[] args) {
         
@@ -7,6 +9,6 @@ class Main {
                         {0, 0, 0, 0, 1},
                         {0, 1, 1, 0, 0}}; 
 
-        System.out.println(grid);
+        System.out.println(Arrays.deepToString(grid));
     }
 }
