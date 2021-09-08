@@ -30,7 +30,7 @@ class Graph {
 
     static void print() {
        	for(int i=0; list[i] != null; i++) {
-            System.out.print("list["+list[i].name+"]: ");
+            System.out.print("list["+list[i].name+"] ");
             
             Vertex tmp;
             for(tmp=list[i].next; tmp!=null;tmp=tmp.next) {
