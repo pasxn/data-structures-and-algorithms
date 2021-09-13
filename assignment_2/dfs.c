@@ -6,6 +6,7 @@
 
 typedef struct vertex {
     char node_name;
+    char visited;
     struct vertex *next;
 } Vertex;
 
@@ -39,13 +40,14 @@ int main() {
     add_ud_edge('G', 'I');
     add_ud_edge('E', 'H');
 
-    add_d_edge('I', 'H');
+    // add_d_edge('I', 'H');
 
     print_graph(adj_list);
 }
 
 void add_vertex(char vertex) {
     adj_list[num_vertices].node_name = vertex;
+    adj_list[num_vertices].visited = FALSE;
     adj_list[num_vertices].next = NULL;
     num_vertices ++;
 }
@@ -74,6 +76,7 @@ void add_to_list(Vertex *ptr, char vertex) {
     
     tmp->next = (Vertex*)malloc(sizeof(Vertex));
     (tmp->next)->node_name = vertex;
+    (tmp->next)->visited = FALSE;
     (tmp->next)->next = NULL;
 }
 
