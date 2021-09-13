@@ -39,7 +39,7 @@ int main() {
     add_ud_edge('G', 'I');
     add_ud_edge('E', 'H');
 
-    add_d_edge('I', 'H');
+    // add_d_edge('I', 'H');
 
     print_graph(adj_list);
 }
