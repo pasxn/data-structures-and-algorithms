@@ -4,17 +4,29 @@
 #define TRUE 1
 #define FALSE 0
 
+// for the graph
 typedef struct vertex {
     char node_name;
     char visited;
     struct vertex *next;
 } Vertex;
 
+// for the stack
+typedef struct node {
+    int x;
+    struct node* next;
+} Node;
+
+
 void add_vertex(char vertex);
 void add_ud_edge(char v1, char v2);
 void add_d_edge(char v1, char v2);
 void add_to_list(Vertex *ptr, char vertex);
 void print_graph(Vertex adj_list[]);
+Node* createNode(int x);
+void push(int x, Node** head);
+Node* pop(Node** stack);
+void print_stack(Node* head);
 
 Vertex adj_list[30];
 int num_vertices = 0;
@@ -89,5 +101,41 @@ void print_graph(Vertex adj_list[]) {
             printf("->(%c)", tmp->node_name);
 
         printf("\n");
+    }
+}
+
+void push(int x, Node** head) {
+    Node* newNode = createNode(x); 
+
+    if(*head == NULL) {      // Manipulating the pointer passed as a referance
+        *head = newNode;     
+    }else{
+        newNode->next = *head;
+        *head = newNode;
+    }
+}
+
+Node* pop(Node** stack) {   // using a pointer to pointer
+    Node* deref = *stack;   // dereferencing for the ease of use
+    Node* tmp = createNode(deref->x); 
+    // copying the values of the 1st node of the stack to return
+
+    *stack = deref->next;   
+    // manipulating the stack passed by a referance and deleting the 1st node
+
+    return tmp;
+}
+
+Node* createNode(int x) { 
+    Node* tmp = (Node*)malloc(sizeof(Node));
+    tmp->x = x;
+    tmp->next = NULL;
+    
+    return tmp;
+}
+
+void print_stack(Node* head) {
+    for(Node* tmp = head; tmp != NULL; tmp = tmp->next) {
+        printf("%d \n", tmp->x);
     }
 }
