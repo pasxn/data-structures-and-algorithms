@@ -11,22 +11,13 @@ typedef struct vertex {
     struct vertex *next;
 } Vertex;
 
-// for the stack
-typedef struct node {
-    int x;
-    struct node* next;
-} Node;
-
-
 void add_vertex(char vertex);
 void add_ud_edge(char v1, char v2);
 void add_d_edge(char v1, char v2);
 void add_to_list(Vertex *ptr, char vertex);
 void print_graph(Vertex adj_list[]);
-Node* createNode(int x);
-void push(int x, Node** head);
-Node* pop(Node** stack);
-void print_stack(Node* head);
+int lookup(char start);
+void dfs(char start);
 
 Vertex adj_list[30];
 int num_vertices = 0;
@@ -50,11 +41,33 @@ int main() {
     add_ud_edge('D', 'G');
     add_ud_edge('F', 'H');
     add_ud_edge('G', 'I');
-    add_ud_edge('E', 'H');
+    // add_ud_edge('E', 'H');
 
     // add_d_edge('I', 'H');
 
     print_graph(adj_list);
+    puts("\n-----------------------------");
+    dfs('G');
+}
+
+int lookup(char start) {
+    for(int i = 0; i<num_vertices; i++) {
+        if(start == adj_list[i].node_name)
+            return i;
+    }
+}
+
+void dfs(char start) {
+    int start_vertex = lookup(start);
+
+    if(adj_list[start_vertex].visited == TRUE)
+        return;
+    else {
+        printf("| %c ", adj_list[start_vertex].node_name);
+        adj_list[start_vertex].visited = TRUE;
+        for(Vertex* tmp = &adj_list[start_vertex]; tmp != NULL; tmp = tmp->next)
+            dfs(tmp->node_name);
+    }
 }
 
 void add_vertex(char vertex) {
@@ -101,41 +114,5 @@ void print_graph(Vertex adj_list[]) {
             printf("->(%c)", tmp->node_name);
 
         printf("\n");
-    }
-}
-
-void push(int x, Node** head) {
-    Node* newNode = createNode(x); 
-
-    if(*head == NULL) {      // Manipulating the pointer passed as a referance
-        *head = newNode;     
-    }else{
-        newNode->next = *head;
-        *head = newNode;
-    }
-}
-
-Node* pop(Node** stack) {   // using a pointer to pointer
-    Node* deref = *stack;   // dereferencing for the ease of use
-    Node* tmp = createNode(deref->x); 
-    // copying the values of the 1st node of the stack to return
-
-    *stack = deref->next;   
-    // manipulating the stack passed by a referance and deleting the 1st node
-
-    return tmp;
-}
-
-Node* createNode(int x) { 
-    Node* tmp = (Node*)malloc(sizeof(Node));
-    tmp->x = x;
-    tmp->next = NULL;
-    
-    return tmp;
-}
-
-void print_stack(Node* head) {
-    for(Node* tmp = head; tmp != NULL; tmp = tmp->next) {
-        printf("%d \n", tmp->x);
     }
 }

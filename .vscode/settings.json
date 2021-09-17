@@ -47,6 +47,7 @@
         "chrono": "cpp",
         "ctime": "cpp",
         "ratio": "cpp",
-        "map": "cpp"
+        "map": "cpp",
+        "xlocale": "c"
     }
 }
