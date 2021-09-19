@@ -13,7 +13,7 @@ typedef struct vertex {
 
 // for the queue
 typedef struct node {
-    int x;
+    char x;
     struct node* next;
 } Node;
 
@@ -22,10 +22,12 @@ void add_ud_edge(char v1, char v2);
 void add_d_edge(char v1, char v2);
 void add_to_list(Vertex *ptr, char vertex);
 void print_graph(Vertex adj_list[]);
-Node* createNode(int x);
-Node* addQ(int x, Node* front);
+Node* createNode(char x);
+Node* addQ(char x, Node* front);
 Node* removeQ(Node** queue);
 void print_Queue(Node* front);
+int lookup(char start);
+void bfs(char start);
 
 Vertex adj_list[30];
 int num_vertices = 0;
@@ -49,11 +51,55 @@ int main() {
     add_ud_edge('D', 'G');
     add_ud_edge('F', 'H');
     add_ud_edge('G', 'I');
-    add_ud_edge('E', 'H');
+    // add_ud_edge('E', 'H');
 
     // add_d_edge('I', 'H');
 
     print_graph(adj_list);
+    puts("\n-----------------------------");
+    bfs('A'); 
+}
+
+int lookup(char start) {
+    for(int i = 0; i<num_vertices; i++)
+        if(start == adj_list[i].node_name)
+            return i;
+}
+
+void bfs(char start) {
+    Node* queue = NULL;
+    int start_index;
+    char output[100];
+    int k = 0;
+
+    for(int i = 0; i<100; i++)
+        output[i] = 0; 
+
+    start_index = lookup(start);
+
+    output[k] = adj_list[start_index].node_name;
+    k++;
+    adj_list[start_index].visited = TRUE;
+
+    queue = addQ(adj_list[start_index].node_name, queue);
+
+    while(queue != NULL){
+        Node* v = removeQ(&queue);
+        int out_q_index = lookup(v->x);
+
+        for(Vertex* tmp = &adj_list[out_q_index]; tmp != NULL; tmp = tmp->next) {
+            if (adj_list[lookup(tmp->node_name)].visited == FALSE) {
+                output[k] = tmp->node_name;
+                k++;
+                queue = addQ(tmp->node_name, queue);
+                adj_list[lookup(tmp->node_name)].visited = TRUE;
+            }
+        }
+    }
+
+    for(int j = 0; output[j] != 0; j++) {
+        printf("| %c ", output[j]);
+    }   
 }
 
 void add_vertex(char vertex) {
@@ -115,7 +161,7 @@ Node* removeQ(Node** queue) {   // using a pointer to pointer
 
 }
 
-Node* addQ(int x, Node* front) {
+Node* addQ(char x, Node* front) {
     Node* newNode = createNode(x); 
 
     if(front == NULL) {
@@ -136,7 +182,7 @@ Node* addQ(int x, Node* front) {
     return front;
 }
 
-Node* createNode(int x) {
+Node* createNode(char x) {
     Node* tmp = (Node*)malloc(sizeof(Node));
     tmp->x = x;
     tmp->next = NULL;
@@ -146,6 +192,6 @@ Node* createNode(int x) {
 
 void print_Queue(Node* front) {
     for(Node* tmp = front; tmp != NULL; tmp = tmp->next) {
-        printf("%d \n", tmp->x);
+        printf("| %c ", tmp->x);
     }
 }
