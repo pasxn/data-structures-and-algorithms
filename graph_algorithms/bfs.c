@@ -69,10 +69,10 @@ int lookup(char start) {
 void bfs(char start) {
     Node* queue = NULL;
     int start_index;
-    char output[100];
+    char output[20];
     int k = 0;
 
-    for(int i = 0; i<100; i++)
+    for(int i = 0; i<20; i++)
         output[i] = 0; 
 
     start_index = lookup(start);
