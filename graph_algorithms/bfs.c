@@ -83,7 +83,7 @@ void bfs(char start) {
 
     queue = addQ(adj_list[start_index].node_name, queue);
 
-    while(queue != NULL){
+    while(queue != NULL) {
         Node* v = removeQ(&queue);
         int out_q_index = lookup(v->x);
 
