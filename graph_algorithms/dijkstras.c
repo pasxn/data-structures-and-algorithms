@@ -74,7 +74,6 @@ int main() {
     add_ud_edge('D', 'E', 5);
 
     print_graph(adj_list);
-    puts("\n-----------------------------");
 
     dijkstras('A', 'G');
 
@@ -96,28 +95,36 @@ void dijkstras(char from, char to) {
     Row *current_vertex = (Row*)malloc(sizeof(Row));
     current_vertex->dist = INT_MAX;
     
-   
-    while(adj_list[num_vertices - 1].visited == FALSE) {
+    int j = 0;
+    while(adj_list[num_vertices-1].visited == FALSE) {
         for(int i = 0; table[i].node_name != 0; i++) {
-            if(table[i].dist <= current_vertex->dist && adj_list[lookup(table[i].node_name)].visited == FALSE)
-                current_vertex = &table[i];
+            if(table[i].dist <= current_vertex->dist) {
+                if(adj_list[lookup(table[i].node_name)].visited == FALSE) {
+                    current_vertex = &table[i];
+                    //printf("%c\n", current_vertex->node_name);
+                }
+            }
         }
+
+        adj_list[lookup(current_vertex->node_name)].visited = TRUE; 
             
         for(Vertex *tmp = adj_list[lookup(current_vertex->node_name)].next; tmp != NULL; tmp = tmp->next) {
             int distance_from_start = current_vertex->dist + tmp->cost;
 
             // if(distance_from_start < table[lookup(tmp->node_name)].dist && adj_list[lookup(tmp->node_name)].visited == FALSE) {
-            if(distance_from_start < table[lookup(tmp->node_name)].dist) {
-                table[lookup(tmp->node_name)].dist = distance_from_start;
-                table[lookup(tmp->node_name)].prev = current_vertex->node_name;
+            int pos = lookup(tmp->node_name); 
+            //printf("%d | %d \n", distance_from_start, table[pos].dist);   
+            if(distance_from_start <= table[pos].dist) {
+                table[pos].dist = distance_from_start;
+                table[pos].prev = current_vertex->node_name;
             }
         }
-        
-        adj_list[lookup(current_vertex->node_name)].visited = TRUE;   
+        j++;  
     }
 
+    puts("\n-----------------------------");
     for(int i = 0; table[i].node_name != 0; i++)
-        printf("%c |%d |%c \n", table[i].node_name, table[i].dist, table[i].prev);
+        printf("%c |%d |%c \n", table[i].node_name, table[i].dist, table[i].prev); 
 
 }
 
