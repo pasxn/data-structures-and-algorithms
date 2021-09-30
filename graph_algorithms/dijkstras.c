@@ -5,6 +5,10 @@
 #define FALSE 0
 #define LEN 30
 
+#ifndef INT_MAX
+#define INT_MAX 2147483647
+#endif
+
 // for the graph
 typedef struct vertex {
     char node_name;
@@ -73,6 +77,7 @@ int main() {
     puts("\n-----------------------------");
 
     dijkstras('A', 'G');
+
 }
 
 void dijkstras(char from, char to) {
@@ -80,7 +85,7 @@ void dijkstras(char from, char to) {
 
     for(int i = 0; i<LEN; i++) {
         table[i].node_name = adj_list[i].node_name;
-        table[i].prev = 0;
+        table[i].prev = 'A';
 
         if(table[i].node_name == from)
             table[i].dist = 0;
@@ -90,30 +95,29 @@ void dijkstras(char from, char to) {
 
     Row *current_vertex = (Row*)malloc(sizeof(Row));
     current_vertex->dist = INT_MAX;
-
-    int j = 0;
-    while(adj_list[j].visited != TRUE) {
+    
+   
+    while(adj_list[num_vertices - 1].visited == FALSE) {
         for(int i = 0; table[i].node_name != 0; i++) {
-            if(table[i].dist <= current_vertex->dist && adj_list[lookup(table[i].node_name)].visited == FALSE) {
+            if(table[i].dist <= current_vertex->dist && adj_list[lookup(table[i].node_name)].visited == FALSE)
                 current_vertex = &table[i];
+        }
+            
+        for(Vertex *tmp = adj_list[lookup(current_vertex->node_name)].next; tmp != NULL; tmp = tmp->next) {
+            int distance_from_start = current_vertex->dist + tmp->cost;
 
-                for(Vertex *tmp = adj_list[lookup(current_vertex->node_name)].next; tmp != NULL; tmp = tmp->next) {
-                    int distance_from_start = current_vertex->dist + tmp->cost;
-
-                    if(distance_from_start < table[lookup(tmp->node_name)].dist && adj_list[lookup(tmp->node_name)].visited == FALSE) {
-                        table[lookup(tmp->node_name)].dist = distance_from_start;
-                        table[lookup(tmp->node_name)].prev = current_vertex->node_name;
-                    }
-                }
-                adj_list[lookup(current_vertex->node_name)].visited = TRUE; 
+            // if(distance_from_start < table[lookup(tmp->node_name)].dist && adj_list[lookup(tmp->node_name)].visited == FALSE) {
+            if(distance_from_start < table[lookup(tmp->node_name)].dist) {
+                table[lookup(tmp->node_name)].dist = distance_from_start;
+                table[lookup(tmp->node_name)].prev = current_vertex->node_name;
             }
         }
-        j++;
+        
+        adj_list[lookup(current_vertex->node_name)].visited = TRUE;   
     }
 
-    for(int i = 0; table[i].node_name != 0; i++) {
+    for(int i = 0; table[i].node_name != 0; i++)
         printf("%c |%d |%c \n", table[i].node_name, table[i].dist, table[i].prev);
-    }
 
 }
 

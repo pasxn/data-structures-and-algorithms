@@ -41,7 +41,7 @@ class Propotional:
 
 if __name__ == '__main__':
 
-    p_con = Propotional(10)
+    p_con = Propotional(1)
     
     target = int(input("Enter the target: "))
 
