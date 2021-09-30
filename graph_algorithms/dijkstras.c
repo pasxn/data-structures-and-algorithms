@@ -96,13 +96,11 @@ void dijkstras(char from, char to) {
     current_vertex->dist = INT_MAX;
     
     int j = 0;
-    while(adj_list[num_vertices-1].visited == FALSE) {
+    while(j < num_vertices) {
         for(int i = 0; table[i].node_name != 0; i++) {
-            if(table[i].dist <= current_vertex->dist) {
-                if(adj_list[lookup(table[i].node_name)].visited == FALSE) {
-                    current_vertex = &table[i];
-                    //printf("%c\n", current_vertex->node_name);
-                }
+            if(table[i].dist <= current_vertex->dist && adj_list[lookup(table[i].node_name)].visited == FALSE) {
+                current_vertex = &table[i];
+                //printf("%c\n", current_vertex->node_name);
             }
         }
 
@@ -110,8 +108,7 @@ void dijkstras(char from, char to) {
             
         for(Vertex *tmp = adj_list[lookup(current_vertex->node_name)].next; tmp != NULL; tmp = tmp->next) {
             int distance_from_start = current_vertex->dist + tmp->cost;
-
-            // if(distance_from_start < table[lookup(tmp->node_name)].dist && adj_list[lookup(tmp->node_name)].visited == FALSE) {
+            
             int pos = lookup(tmp->node_name); 
             //printf("%d | %d \n", distance_from_start, table[pos].dist);   
             if(distance_from_start <= table[pos].dist) {
