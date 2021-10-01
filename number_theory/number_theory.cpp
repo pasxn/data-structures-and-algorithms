@@ -64,5 +64,5 @@ int naive_lcm(int a, int b) {
 }
 
 int lcm_gcd(int a, int b) {
-    return a*b/euclid(a, b);
+    return a*b/euclid_gcd(a, b);
 }

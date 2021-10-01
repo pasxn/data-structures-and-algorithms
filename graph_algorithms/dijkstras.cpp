@@ -50,7 +50,7 @@ int main() {
     add_d_edge('A', 'D', 16);
     add_d_edge('B', 'D', 5);
     add_d_edge('B', 'E', 4);
-    add_d_edge('C', 'F', 4);
+    add_d_edge('C', 'F', 5);
     add_d_edge('C', 'B', 16);
     add_d_edge('C', 'E', 3);
     add_d_edge('D', 'G', 3);
@@ -58,20 +58,21 @@ int main() {
     add_d_edge('E', 'G', 10);
     add_d_edge('F', 'G', 1);
     */
-
+    
     add_vertex('A');
     add_vertex('B');
     add_vertex('C');
     add_vertex('D');
     add_vertex('E');
 
-    add_ud_edge('A', 'B', 7);
-    add_ud_edge('A', 'C', 1);
-    add_ud_edge('B', 'C', 3);
-    add_ud_edge('B', 'D', 3);
-    add_ud_edge('B', 'E', 2);
-    add_ud_edge('C', 'D', 1);
-    add_ud_edge('D', 'E', 5);
+    add_d_edge('A', 'B', 7);
+    add_d_edge('A', 'C', 1);
+    add_d_edge('B', 'C', 3);
+    add_d_edge('B', 'D', 3);
+    add_d_edge('B', 'E', 2);
+    add_d_edge('C', 'D', 1);
+    add_d_edge('D', 'E', 5);
+    
 
     print_graph(adj_list);
 
