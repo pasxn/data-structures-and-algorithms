@@ -101,7 +101,7 @@ void dijkstras(char from, char to) {
         for(int i = 0; table[i].node_name != 0; i++) {
             if(table[i].dist <= current_vertex->dist && adj_list[lookup(table[i].node_name)].visited == FALSE) {
                 current_vertex = &table[i];
-                //printf("%c\n", current_vertex->node_name);
+                // printf("%c\n", current_vertex->node_name);
             }
         }
 
@@ -111,7 +111,7 @@ void dijkstras(char from, char to) {
             int distance_from_start = current_vertex->dist + tmp->cost;
             
             int pos = lookup(tmp->node_name); 
-            //printf("%d | %d \n", distance_from_start, table[pos].dist);   
+            // printf("%d | %d \n", distance_from_start, table[pos].dist);   
             if(distance_from_start <= table[pos].dist) {
                 table[pos].dist = distance_from_start;
                 table[pos].prev = current_vertex->node_name;

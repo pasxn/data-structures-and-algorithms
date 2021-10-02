@@ -40,6 +40,7 @@ public class Dijkstras{
 
     static Vertex adjList[] = new Vertex[100];
     static int numVertices = 0;
+    static int intMax = 2147483647;
 
     static void addVertex(char vertex){
         adjList[numVertices] = new Vertex(vertex);
@@ -106,9 +107,9 @@ public class Dijkstras{
             if(table[i].node_name == start)
                 table[i].dist = 0;
             else {
-                table[i].dist = 2147483647;
-                pq.add(table[i].node_name);
-            }	
+                table[i].dist = intMax;
+            }
+            pq.add(table[i].node_name);	
         }
         
         
@@ -118,14 +119,12 @@ public class Dijkstras{
         	for(Vertex tmp = adjList[lookup(current_node.node_name)].next; tmp != null; tmp = tmp.next) {
         		int pos = lookup(tmp.vertex_name); 
         		
-        		if(adjList[pos].visited == false) {
-            		int distance_from_start = current_node.dist + tmp.cost;
+            	int distance_from_start = current_node.dist + tmp.cost;
             		  
-                    if(distance_from_start < table[pos].dist) {
-                        table[pos].dist = distance_from_start;
-                        table[pos].prev = current_node.node_name;
-                    }
-        		}
+                if(distance_from_start < table[pos].dist) {
+                    table[pos].dist = distance_from_start;
+                    table[pos].prev = current_node.node_name;
+                }
 
         	}
         }
@@ -136,9 +135,8 @@ public class Dijkstras{
     }
 
     public static void main(String args[]) {
-    	/*
+    	
     	addVertex('A');
-        addVertex('A');
         addVertex('B');
         addVertex('C');
         addVertex('D');
@@ -158,24 +156,39 @@ public class Dijkstras{
         addDirEdge('E', 'D', 4);
         addDirEdge('E', 'G', 10);
         addDirEdge('F', 'G', 1);
-        */
         
+        /*
         addVertex('A');
         addVertex('B');
         addVertex('C');
         addVertex('D');
         addVertex('E');
     
-        addDirEdge('A', 'B', 7);
-        addDirEdge('A', 'C', 1);
-        addDirEdge('B', 'C', 3);
-        addDirEdge('B', 'D', 3);
-        addDirEdge('B', 'E', 2);
-        addDirEdge('C', 'D', 1);
-        addDirEdge('D', 'E', 5);
-        
-        
-        
+        addUndirEdge('A', 'B', 7);
+        addUndirEdge('A', 'C', 1);
+        addUndirEdge('B', 'C', 3);
+        addUndirEdge('B', 'D', 3);
+        addUndirEdge('B', 'E', 2);
+        addUndirEdge('C', 'D', 1);
+        addUndirEdge('D', 'E', 5);
+        */
+
+        /*
+        addVertex('A');
+        addVertex('B');
+        addVertex('C');
+        addVertex('D');
+        addVertex('E');
+    
+        addUndirEdge('A', 'B', 6);
+        addUndirEdge('A', 'D', 1);
+        addUndirEdge('B', 'C', 2);
+        addUndirEdge('B', 'D', 2);
+        addUndirEdge('B', 'E', 2);
+        addUndirEdge('C', 'E', 5);
+        addUndirEdge('D', 'E', 1);
+        */
+
         printGraph(adjList);
         
         dijkstra('A');
