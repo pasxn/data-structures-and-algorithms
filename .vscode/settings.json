@@ -49,5 +49,10 @@
         "ratio": "cpp",
         "map": "cpp",
         "xlocale": "c"
-    }
+    },
+    "cmake.configureOnOpen": false,
+    "java.project.sourcePaths": [
+        "graph_theory",
+        "graph_algorithms"
+    ]
 }
