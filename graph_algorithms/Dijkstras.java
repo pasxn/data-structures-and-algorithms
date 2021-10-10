@@ -133,7 +133,7 @@ public class Dijkstras{
     }
 
     public static void main(String args[]) {
-    	/*
+    	
     	addVertex('A');
         addVertex('B');
         addVertex('C');
@@ -154,8 +154,8 @@ public class Dijkstras{
         addDirEdge('E', 'D', 4);
         addDirEdge('E', 'G', 10);
         addDirEdge('F', 'G', 1);
-        */
         
+        /*
         addVertex('A');
         addVertex('B');
         addVertex('C');
@@ -169,7 +169,7 @@ public class Dijkstras{
         addUndirEdge('B', 'E', 2);
         addUndirEdge('C', 'D', 1);
         addUndirEdge('D', 'E', 5);
-        
+        */
 
         /*
         addVertex('A');

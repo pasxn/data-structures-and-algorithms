@@ -164,9 +164,10 @@ public class Kruskals {
         // sorting the ArrayList by cost
         MSTlistDirSorted.sort(Comparator.comparing(MSTNode::getCost));
 
+        System.out.println("------------- Edges -------------");
 
         for(int i = 0; i<MSTlistDirSorted.size(); i++) {
-            System.out.printf("%c, %c, %d \n", MSTlistDirSorted.get(i).from, MSTlistDirSorted.get(i).to, MSTlistDirSorted.get(i).cost);
+            System.out.printf("(%c -> %c :[cost = %d]) \n", MSTlistDirSorted.get(i).from, MSTlistDirSorted.get(i).to, MSTlistDirSorted.get(i).cost);
         }
 
         List<MSTNode> MinSpanningTree = new ArrayList<MSTNode>();
@@ -184,7 +185,7 @@ public class Kruskals {
         }*/
         
         for(int i = 0; i<MinSpanningTree.size(); i++) {
-            System.out.printf("%c, %c, %d \n", MinSpanningTree.get(i).from, MinSpanningTree.get(i).to, MSTlistDirSorted.get(i).cost);
+            System.out.printf("(%c -> %c :[cost = %d]) \n", MinSpanningTree.get(i).from, MinSpanningTree.get(i).to, MSTlistDirSorted.get(i).cost);
         }
 
     }
