@@ -57,7 +57,8 @@ int main() {
 
     print_graph(adj_list);
     puts("\n-----------------------------");
-    bfs('A'); 
+    bfs(adj_list[0].node_name); 
+    puts("\n");
 }
 
 int lookup(char start) {

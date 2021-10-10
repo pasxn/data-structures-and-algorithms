@@ -189,7 +189,7 @@ public class Dijkstras{
 
         printGraph(adjList);
         
-        dijkstra('A');
+        dijkstra(adjList[0].vertex_name);
         
     }
 
