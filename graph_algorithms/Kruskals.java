@@ -177,11 +177,11 @@ public class Kruskals {
                 MinSpanningTree.add(subject);
         }
 
-        for(int i = 0; i<adj.size(); i++) {
+        /*for(int i = 0; i<adj.size(); i++) {
             System.out.print(adj.get(i).vertex_name + " -> ");
             System.out.println(adj.get(i).list.toString());
 
-        }
+        }*/
         
         for(int i = 0; i<MinSpanningTree.size(); i++) {
             System.out.printf("%c, %c, %d \n", MinSpanningTree.get(i).from, MinSpanningTree.get(i).to, MSTlistDirSorted.get(i).cost);
