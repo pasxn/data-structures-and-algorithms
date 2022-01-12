@@ -117,12 +117,12 @@ public class Dijkstras{
         	for(Vertex tmp = adjList[lookup(current_node.node_name)].next; tmp != null; tmp = tmp.next) {
         		int pos = lookup(tmp.vertex_name); 
         		
-            	int distance_from_start = current_node.dist + tmp.cost;
+            		int distance_from_start = current_node.dist + tmp.cost;
             		  
-                if(distance_from_start < table[pos].dist) {
-                    table[pos].dist = distance_from_start;
-                    table[pos].prev = current_node.node_name;
-                }
+                	if(distance_from_start < table[pos].dist) {
+                    		table[pos].dist = distance_from_start;
+                    		table[pos].prev = current_node.node_name;
+                	}
 
         	}
         }
