@@ -29,9 +29,7 @@ if __name__ == '__main__':
     for i in range(len(t)):
         emulated_measurement.append(np.sin(t[i]) + np.random.uniform(-0.5, 0.5))
         sinn.append(np.sin(t[i]))
-
-    for i in range(len(t)):
-        output.append(KF.compute(t[i]))    
+        output.append(KF.compute(t[i])) 
 
     plt.plot(emulated_measurement)
     plt.plot(output)
