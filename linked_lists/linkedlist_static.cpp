@@ -6,7 +6,7 @@ typedef struct node {
 } Node;
 
 int main() {
-    Node* head = NULL;
+  Node* head = NULL;
 	Node n1 = {1, NULL};
 	Node n2 = {2, NULL};
 	Node n3 = {3, NULL};
