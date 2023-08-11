@@ -3,8 +3,9 @@
 
 
 int binarySearch(int arr[], int l, int r, int x) {
+	r--;
 	while (l <= r) {
-		int m = l + (r - l) / 2;
+		int m = (l + r) / 2;
 
 		// check if x is present at mid
 		if (arr[m] == x)
@@ -26,12 +27,12 @@ int binarySearch(int arr[], int l, int r, int x) {
 // driver code
 int main(void) {
 	int arr[] = { 2, 3, 4, 10, 40 };
-	int x = 10;
+	int x = 50;
 	
   int n = sizeof(arr) / sizeof(arr[0]);
 	int result = binarySearch(arr, 0, n - 1, x);
 	
-  (result == -1) ? std::cout << "Element is not present in array" : std::cout << "Element is present at index: " << result << std::endl;
+  (result == -1) ? std::cout << "Element is not present in array\n" : std::cout << "Element is present at index: " << result << std::endl;
 
 	return 0;
 }
