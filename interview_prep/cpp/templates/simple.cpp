@@ -1,14 +1,15 @@
 #include <iostream>
 
+
 // generic types -> function templates
 template <typename T>
 T add(T x) {
-    return x + x;
+  return x + x;
 }
 
 template <typename T>
 constexpr T square(T x) {
-    return x * x;
+  return x * x;
 }
 
 // class templates
