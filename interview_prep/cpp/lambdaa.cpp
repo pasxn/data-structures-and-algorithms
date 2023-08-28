@@ -22,7 +22,7 @@ int main() {
 
 
   // return type can be explicitly specified or deduced from the return statement
-  // explicitly specifying is commonlt done when multiple statements returns different types.
+  // explicitly specifying is commonly done when multiple statements returns different types.
   // no matter what type of value is returned by the various return statements, they are all explicitly converted to int type.
   auto add = [] (float a, float b) -> int{ return a + b; };
 
