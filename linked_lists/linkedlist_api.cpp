@@ -100,9 +100,9 @@ int main() {
 
     ll->print();
 
-//    ll->clean();
+    ll->clean();
 
-//    ll->print();
+    ll->print();
 
     ll->modifyHead(5);
 
@@ -112,9 +112,9 @@ int main() {
 
     ll->print();
 
-//    std::cout << ll->pop() <<std::endl;
+    std::cout << ll->pop() <<std::endl;
 
-//    ll->print();
+    ll->print();
 
     delete ll;
 
